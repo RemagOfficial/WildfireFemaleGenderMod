@@ -31,10 +31,6 @@ import javax.annotation.Nonnull;
 import com.wildfire.main.GenderPlayer;
 import com.wildfire.main.WildfireGender;
 import com.wildfire.render.armor.EmptyGenderArmor;
-import dev.emi.trinkets.api.SlotGroup;
-import dev.emi.trinkets.api.SlotType;
-import dev.emi.trinkets.api.TrinketsApi;
-import moe.kawaaii.TransparentCosmetics.TransparentArmorMaterial;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.MinecraftClient;
@@ -118,15 +114,6 @@ public class GenderLayer extends FeatureRenderer<AbstractClientPlayerEntity, Pla
 
 			//Note: When the stack is empty the helper will fall back to an implementation that returns the proper data
 			IGenderArmor armorConfig = WildfireHelper.getArmorConfig(armorStack);
-
-
-			//Cosmetic armor
-			if (FabricLoader.getInstance().isModLoaded("trinkets")) {
-				if (TrinketsApi.getTrinketComponent(MinecraftClient.getInstance().player).get().getInventory().get("chest").get("cosmetic").getStack(0).getItem() != Items.AIR) {
-					armorStack = TrinketsApi.getTrinketComponent(MinecraftClient.getInstance().player).get().getInventory().get("chest").get("cosmetic").getStack(0);
-					armorConfig = WildfireHelper.getArmorConfig(armorStack);
-				}
-			}
 
 			boolean isChestplateOccupied = armorConfig.coversBreasts();
 			if (armorConfig.alwaysHidesBreasts() || !plr.showBreastsInArmor() && isChestplateOccupied) {

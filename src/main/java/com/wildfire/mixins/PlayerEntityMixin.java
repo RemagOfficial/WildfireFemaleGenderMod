@@ -23,8 +23,6 @@ import com.wildfire.main.GenderPlayer;
 import com.wildfire.main.WildfireGender;
 import com.wildfire.main.WildfireHelper;
 import com.wildfire.render.armor.EmptyGenderArmor;
-import dev.emi.trinkets.api.TrinketsApi;
-import moe.kawaaii.TransparentCosmetics.TransparentArmorMaterial;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.loader.api.FabricLoader;
@@ -75,14 +73,6 @@ public abstract class PlayerEntityMixin extends LivingEntity {
         ItemStack armorStack = plr.getEquippedStack(EquipmentSlot.CHEST);
 
         IGenderArmor armorConfig = WildfireHelper.getArmorConfig(armorStack);
-
-        //Cosmetic armor
-        if(FabricLoader.getInstance().isModLoaded("trinkets")) {
-            if (TrinketsApi.getTrinketComponent(MinecraftClient.getInstance().player).get().getInventory().get("chest").get("cosmetic").getStack(0).getItem() != Items.AIR) {
-                armorStack = TrinketsApi.getTrinketComponent(MinecraftClient.getInstance().player).get().getInventory().get("chest").get("cosmetic").getStack(0);
-                armorConfig = WildfireHelper.getArmorConfig(armorStack);
-            }
-        }
 
         aPlr.getLeftBreastPhysics().update(plr, armorConfig);
         aPlr.getRightBreastPhysics().update(plr, armorConfig);
